@@ -29,7 +29,7 @@ public class Task {
     public void setDescription(String description) {this.description = description;}
     public void setCreatedon(long createdon) {this.createdon = createdon;}
     public void setCompleted(Boolean completed) {this.completed = completed;}
-    public void setFormattedCreatedAt() {String formattedCreatedOn = new SimpleDateFormat("MM/dd/yyyy @ K:mm a").format(this.createdon);}
+    public void setFormattedCreatedOn() {String formattedCreatedOn = new SimpleDateFormat("MM/dd/yyyy @ K:mm a").format(this.createdon);}
 
     //constructor
     public Task(int userId, String name, String description, Boolean completed) {
@@ -38,7 +38,7 @@ public class Task {
         this.description = description;
         this.completed = false;
         this.createdon = System.currentTimeMillis();
-        setFormattedCreatedAt();
+        setFormattedCreatedOn();
     }
 
     @Override

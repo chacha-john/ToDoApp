@@ -15,7 +15,7 @@ public interface InterfaceTask {
     List<Task> getAll(int userId);
 
     //UPDATE
-    void update (int id, String name, String description, Boolean completed);
+    void update (int id, String name, String description);
 
     //DELETE
     void deleteById(int id);
