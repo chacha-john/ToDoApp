@@ -8,14 +8,13 @@ import org.sql2o.Sql2oException;
 public class UserDao implements IUser {
 
     @Override
-    public void createAccount(Connection connection, User user) {
+    public boolean createAccount(Connection connection, User user) {
         try{
             String query = "INSERT INTO users (name,email,phone,password) VALUES(:name,:email,:phone,:password";
-             int id = (int) connection.createQuery(query)
-                    .bind(user)
-                    .executeUpdate()
-                    .getKey();
-             user.setId(id);
+             return connection.createQuery(query)
+                     .bind(user)
+                     .executeUpdate()
+                     .getResult() > 0;
         } catch (Sql2oException ex){
             throw new RuntimeException("An error was encountered",ex);
         }
