@@ -9,6 +9,8 @@ public class User {
     private String password;
     private String phone;
 
+    private static User activeUser;
+
     public User(String name, String email, String password, String phone) {
         this.name = name;
         this.email = email;
@@ -54,6 +56,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public static User getActiveUser() {
+        return activeUser;
+    }
+
+    public static void setActiveUser(User au) {
+        User.activeUser = au;
     }
 
     @Override
