@@ -1,0 +1,9 @@
+CREATE DATABASE todo;
+\c todo;
+CREATE TABLE IF NOT EXISTS users(
+id SERIAL PRIMARY KEY,
+name VARCHAR,
+phone VARCHAR,
+email VARCHAR,
+password VARCHAR
+);
