@@ -33,9 +33,23 @@
             <li>{{name}}</li>
             <li>{{description}}</li>
             <button><a href="/tasks/{{id}}/delete">X</a></button>
+            <button><a href="/tasks/{{id}}/edit">Edit</a></button>
         </ul>
     {{/each}}
 {{/if}}
+
+{{#if editTask}}
+    <h1>Edit this Post!</h1>
+    <form action="/tasks/{{editTask.id}}/edit" method="post">
+        <label for="name">Edit this task's name</label>
+        <input id="name" name="name" type="text" value="{{editTask.name}}">
+        <label for="description">Edit this task's description</label>
+        <input id="description" name="details" type="text" value="{{editTask.description}}">
+        <button type="submit">Go</button>
+    </form>
+{{else}}
+    {{/if}}
+
 
 <!--<div class="container">-->
 <!--    <h1 class="text-light">To Do</h1>-->

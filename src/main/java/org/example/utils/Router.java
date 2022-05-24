@@ -104,20 +104,23 @@ public class Router extends RouterUtil {
 
 
         //update task
-        get("/user/:userId/tasks/:id/edit", (req, res) -> {
+        get("/tasks/:id/edit", (req, res) -> {
             checkLogin(req, res);
             Map<String, Object> model = new HashMap<>();
-            model.put("editTask", true);
-            model.put("task", task.findById(Integer.parseInt(req.params("id"))));
-            model.put("tasks", task.getAll(Integer.parseInt(req.params(":userId"))));
-            return new ModelAndView(model, "");
+            int intOfTaskTofind = Integer.parseInt(req.params("id"));
+            Task editTask = task.findById(intOfTaskTofind);
+            model.put("editTask", editTask);
+//            model.put("task", task.findById(Integer.parseInt(req.params("id"))));
+//            model.put("tasks", task.getAll(Integer.parseInt(req.params(":userId"))));
+            return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/user/:userId/tasks/:id", (req, res) -> {
+        post("/tasks/:id/edit", (req, res) -> {
             checkLogin(req, res);
             Map<String, Object> model = new HashMap<>();
-            task.update(Integer.parseInt(req.params(":id")), req.queryParams("name"), req.queryParams("details"));
-            return new ModelAndView(model, "");
+            task.update(Integer.parseInt(req.params("id")), req.queryParams("name"), req.queryParams("details"));
+            res.redirect("/");
+            return null;
         }, new HandlebarsTemplateEngine());
 
 
