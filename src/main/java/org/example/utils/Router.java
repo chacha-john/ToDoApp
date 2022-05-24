@@ -25,6 +25,7 @@ public class Router extends RouterUtil {
             String email = req.queryParams("email");
             String password = req.queryParams("password");
             User user = new UserDao().login(connection,email,password);
+            User.setActiveUser(user);
             if (user!=null){
                 req.session().attribute("user",user);
                 res.redirect("/");
@@ -83,6 +84,7 @@ public class Router extends RouterUtil {
             checkLogin(req,res);
             Map<String, Object> model = new HashMap<>();
             User user = User.getActiveUser();
+
             Task newTask = new Task(user.getId(), req.queryParams("name"), req.queryParams("details"));
             task.add(newTask);
             model.put("tasks", task.getAll(user.getId()));

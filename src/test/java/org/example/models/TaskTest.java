@@ -47,6 +47,6 @@ public class TaskTest {
 
     //helper
     public Task setupTask(){
-        return new Task(1, "Chores", "Wash the dishes", false);
+        return new Task(1, "Chores", "Wash the dishes");
     }
 }

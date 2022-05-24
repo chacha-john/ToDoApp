@@ -34,7 +34,8 @@ class UserDaoTest {
     void createAccount() {
         IUser userDao = new UserDao();
         User user = new User("chacha","chacha@riko.com","understand","020-224-2525");
-        assertTrue(userDao.createAccount(con,user));
+        userDao.createAccount(con,user);
+        assertEquals(1, user.getId());
 
     }
 
