@@ -6,6 +6,6 @@ id SERIAL PRIMARY KEY,
 userid INT,
 name VARCHAR,
 description VARCHAR,
-createdon BIGINT,
+createdon timestamp,
 completed BOOLEAN
 );
