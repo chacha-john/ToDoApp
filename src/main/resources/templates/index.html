@@ -22,8 +22,12 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" href="/">Tasks</a></li>
                 <li class="nav-item"><a class="nav-link" href="/user/task/new">Add Tasks</a></li>
+                {{#if userExists}}
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                {{else}}
                 <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
             </ul><a class="btn btn-primary ms-md-2" role="button" href="/register">Sign Up</a>
+            {{/if}}
         </div>
     </div>
 </nav>

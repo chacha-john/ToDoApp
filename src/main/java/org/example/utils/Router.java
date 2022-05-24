@@ -43,6 +43,9 @@ public class Router extends RouterUtil {
             checkLogin(request, response);
             Map<String, Object> model = new HashMap<>();
             User user = User.getActiveUser();
+            if(request.session().attribute("user") != null) {
+                model.put("userExists", true);
+            }
             model.put("tasks", task.getAll(user.getId()));
             return new ModelAndView(model, "index.html");
         }, new HandlebarsTemplateEngine());
@@ -70,6 +73,9 @@ public class Router extends RouterUtil {
         get("/user/task/new", (req, res) -> {
             checkLogin(req, res);
             Map<String, Object> model = new HashMap<>();
+            if(req.session().attribute("user") != null) {
+                model.put("userExists", true);
+            }
             return new ModelAndView(model, "addtask.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -111,6 +117,15 @@ public class Router extends RouterUtil {
             Map<String, Object> model = new HashMap<>();
             task.deleteById(Integer.parseInt(req.params("id")));
             res.redirect("/");
+            return null;
+        });
+
+
+        //logout user
+        get("/logout", (request, response) -> {
+            checkLogin(request, response);
+            request.session().removeAttribute("user");
+            response.redirect("/login");
             return null;
         });
 
