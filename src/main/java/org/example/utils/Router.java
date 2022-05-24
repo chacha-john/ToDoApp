@@ -44,7 +44,7 @@ public class Router extends RouterUtil {
             Map<String, Object> model = new HashMap<>();
             User user = User.getActiveUser();
             model.put("tasks", task.getAll(user.getId()));
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "index.html");
         }, new HandlebarsTemplateEngine());
 
         get("/register", (req, res) -> {
@@ -78,28 +78,11 @@ public class Router extends RouterUtil {
             Map<String, Object> model = new HashMap<>();
             User user = User.getActiveUser();
             Task newTask = new Task(user.getId(), req.queryParams("name"), req.queryParams("details"));
-//            newTask.setCreatedon();
-//            newTask.setFormattedCreatedOn();
             task.add(newTask);
             model.put("tasks", task.getAll(user.getId()));
-            return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
-
-
-        //read all tasks
-        get("/user/:userId", (req, res) -> {
-            checkLogin(req, res);
-            Map<String, Object> model = new HashMap<>();
-            model.put("tasks", task.getAll(Integer.parseInt(req.params("userId"))));
-            return new ModelAndView(model, "");
-        }, new HandlebarsTemplateEngine());
-
-        //read task details
-        get("/user/:userId/tasks/:id", (req, res) -> {
-            checkLogin(req, res);
-            Map<String, Object> model = new HashMap<>();
-            model.put("task", task.findById(Integer.parseInt(req.params("id"))));
-            return new ModelAndView(model, "");
+            res.redirect("/");
+            return null;
+//            return new ModelAndView(model, "index.html");
         }, new HandlebarsTemplateEngine());
 
 
@@ -110,9 +93,7 @@ public class Router extends RouterUtil {
             int intOfTaskTofind = Integer.parseInt(req.params("id"));
             Task editTask = task.findById(intOfTaskTofind);
             model.put("editTask", editTask);
-//            model.put("task", task.findById(Integer.parseInt(req.params("id"))));
-//            model.put("tasks", task.getAll(Integer.parseInt(req.params(":userId"))));
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "index.html");
         }, new HandlebarsTemplateEngine());
 
         post("/tasks/:id/edit", (req, res) -> {
@@ -133,12 +114,5 @@ public class Router extends RouterUtil {
             return null;
         });
 
-        //delete all tasks
-        get("/user/:userId/tasks/delete", (req, res) -> {
-            checkLogin(req, res);
-            Map<String, Object> model = new HashMap<>();
-            task.clearAllTasks();
-            return new ModelAndView(model, "");
-        }, new HandlebarsTemplateEngine());
     }
 }

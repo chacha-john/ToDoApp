@@ -12,64 +12,84 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-list-task">
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark py-3">
+    <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-list-task">
                         <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"></path>
                         <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"></path>
                         <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"></path>
                     </svg></span><span>To Do List</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-2">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Tasks</a></li>
-                    <li class="nav-item"><a class="nav-link" href="addtask.html">Add Tasks</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">Log In</a></li>
-                </ul><a class="btn btn-primary ms-md-2" role="button" href="signup.html">Sign Up</a>
-            </div>
+        <div class="collapse navbar-collapse" id="navcol-2">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="/">Tasks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user/task/new">Add Tasks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+            </ul><a class="btn btn-primary ms-md-2" role="button" href="/register">Sign Up</a>
         </div>
-    </nav>
+    </div>
+</nav>
     <div class="container">
         <h1 class="text-light">To Do</h1>
-        <div class="list-group"><a class="list-group-item list-group-item-action flex-column align-items-start my-2" href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
+
+        <div class="list-group">
+            {{#if tasks}}
+            {{#each tasks}}
+            <div class="list-group-item list-group-item-action flex-column align-items-start my-2">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Heading</h5><small>3 days ago</small>
+                    <h5 class="mb-1">{{name}}</h5>
+                    <div><small class="me-2">3 days ago</small><a href="#" data-bs-target="#modal-3" data-bs-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-trash text-danger">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                    </svg></a></div>
                 </div>
-                <p class="mb-1">Paragraph</p><small class="text-muted">Text</small>
-            </a>
-            <form>
+                <p class="mb-1">{{description}}</p><a href="#" data-bs-target="#modal-1" data-bs-toggle="modal"><small class="text-muted">Edit</small></a>
+            </div>
+            <form action="/tasks/{{id}}/edit" method="POST">
                 <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Edit Task</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body"><input class="form-control form-control-lg my-2" type="text" placeholder="Task name" name="taskName" required=""><input class="form-control form-control-lg my-2" type="text" placeholder="Task Description" name="taskDescription" required="">
+                            <div class="modal-body">
+                                <input class="form-control form-control-lg my-2" type="text" placeholder="Task name" name="name" value="{{name}}" required="">
+                                <input class="form-control form-control-lg my-2" type="text" placeholder="Task Description" name="details" value="{{description}}" required="">
                                 <div class="form-check my-2"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Completed</label></div>
                             </div>
                             <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>
                         </div>
                     </div>
                 </div>
-            </form><a class="list-group-item list-group-item-action flex-column align-items-start my-2" href="#" data-bs-target="#modal-2" data-bs-toggle="modal">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Heading</h5><small>3 days ago</small>
-                </div>
-                <p class="mb-1">Paragraph</p><small class="text-muted">Text</small>
-            </a>
-            <form>
-                <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Edit Task</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body"><input class="form-control form-control-lg my-2" type="text" placeholder="Task name" name="taskName" required=""><input class="form-control form-control-lg my-2" type="text" placeholder="Task Description" name="taskDescription" required="">
-                                <div class="form-check my-2"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Completed</label></div>
-                            </div>
-                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>
+            </form>
+<!--            <form>-->
+<!--                <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">-->
+<!--                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                <h4 class="modal-title">Edit Task</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body"><input class="form-control form-control-lg my-2" type="text" placeholder="Task name" name="taskName" required=""><input class="form-control form-control-lg my-2" type="text" placeholder="Task Description" name="taskDescription" required="">-->
+<!--                                <div class="form-check my-2"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Completed</label></div>-->
+<!--                            </div>-->
+<!--                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
+            <div class="modal fade" role="dialog" tabindex="-1" id="modal-3">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirm Deletion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this task?</p>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger ms-md-2" role="button" href="/tasks/{{id}}/delete">Yes</a></div>
                     </div>
                 </div>
-            </form>
+            </div>
+            {{/each}}
+            {{/if}}
         </div>
     </div>
     <footer class="footer" style="background: rgba(0,0,0,0.8);">
