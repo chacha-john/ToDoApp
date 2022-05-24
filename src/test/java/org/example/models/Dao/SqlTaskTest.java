@@ -3,12 +3,14 @@ package org.example.models.Dao;
 import org.example.models.Task;
 import org.junit.AfterClass;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SqlTaskTest {
@@ -44,7 +46,7 @@ public class SqlTaskTest {
     public void addingTaskSetsId() throws Exception { //passed
         int initialTaskId = testTask.getId();
         task.add(testTask);
-        assertNotEquals(initialTaskId, testTask.getId());
+        Assertions.assertNotEquals(initialTaskId, testTask.getId());
     }
 
     @Test
@@ -54,7 +56,7 @@ public class SqlTaskTest {
     }
 
     @Test
-    public void addedTasksAreReturnedFromGetAll() throws Exception { //failed
+    public void addedTasksAreReturnedFromGetAll() throws Exception { //passed
         task.add(testTask);
         task.add(testTask1);
         task.add(testTask2);
@@ -62,16 +64,30 @@ public class SqlTaskTest {
     }
     
     @Test
-    public void noTaskReturnsEmptyList() throws Exception { //failed
+    public void noTaskReturnsEmptyList() throws Exception { //passed
        assertEquals(0, task.getAll(1).size()); 
     }
 
     @Test
-    public void update() throws Exception {
+    public void updatingTaskChangesTaskDescription() throws Exception {
+        String initialDescription = "Wash the dishes";
+        task.add(testTask);
+        task.update(testTask.getId(), "Chores", "Mow the lawn");
+        Task updatedTask = task.findById(testTask.getId());
+        Assertions.assertNotEquals(initialDescription, updatedTask.getDescription());
     }
 
     @Test
-    public void deleteByIdDeletesCorrectTask() throws Exception { //failed
+    public void updatingTaskChangesTaskName() throws Exception {
+        String initialName = "Chores";
+        task.add(testTask);
+        task.update(testTask.getId(), "House Chores", "Wash the dishes");
+        Task updatedTask = task.findById(testTask.getId());
+        Assertions.assertNotEquals(initialName, updatedTask.getName());
+    }
+
+    @Test
+    public void deleteByIdDeletesCorrectTask() throws Exception { //passed
         task.add(testTask);
         task.add(testTask1);
         task.add(testTask2);
@@ -81,7 +97,7 @@ public class SqlTaskTest {
     }
 
     @Test
-    public void clearAllTasksDeletesAllTasks() throws Exception { //failed
+    public void clearAllTasksDeletesAllTasks() throws Exception { //passed
         task.add(testTask);
         task.add(testTask1);
         task.add(testTask2);
