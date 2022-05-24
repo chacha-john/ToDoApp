@@ -27,9 +27,12 @@ public class Task {
     public void setUserId(int userId) {this.userId = userId;}
     public void setName(String name) {this.name = name;}
     public void setDescription(String description) {this.description = description;}
-    public void setCreatedon(long createdon) {this.createdon = createdon;}
+    public void setCreatedon() {this.createdon = System.currentTimeMillis();}
     public void setCompleted(Boolean completed) {this.completed = completed;}
-    public void setFormattedCreatedOn() {String formattedCreatedOn = new SimpleDateFormat("MM/dd/yyyy @ K:mm a").format(this.createdon);}
+    public void setFormattedCreatedOn() {
+        String formattedCreatedOn = new SimpleDateFormat("MM/dd/yyyy @ K:mm a").format(this.createdon);
+
+    }
 
     //constructor
     public Task(int userId, String name, String description, Boolean completed) {
