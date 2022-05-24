@@ -40,9 +40,18 @@ class UserDaoTest {
 
     @Test
     void login() {
+        IUser userDao = new UserDao();
+        User user = new User("chacha","chacha@riko.com","understand","020-224-2525");
+        userDao.createAccount(con,user);
+        User user1 = userDao.login(con,user.getEmail(),user.getPassword());
+        assertEquals("chacha", user1.getName());
     }
 
     @Test
     void changePassword() {
+        IUser userDao = new UserDao();
+        User user = new User("chacha","chacha@riko.com","understand","020-224-2525");
+        userDao.createAccount(con,user);
+        assertTrue(userDao.changePassword(con, "chacha@riko.com","compartment"));
     }
 }
