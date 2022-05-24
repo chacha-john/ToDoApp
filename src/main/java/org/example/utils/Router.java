@@ -122,12 +122,13 @@ public class Router extends RouterUtil {
 
 
         //delete one task
-        get("/user/:userId/tasks/:id/delete", (req, res) -> {
+        get("/tasks/:id/delete", (req, res) -> {
             checkLogin(req, res);
             Map<String, Object> model = new HashMap<>();
             task.deleteById(Integer.parseInt(req.params("id")));
-            return new ModelAndView(model, "");
-        }, new HandlebarsTemplateEngine());
+            res.redirect("/");
+            return null;
+        });
 
         //delete all tasks
         get("/user/:userId/tasks/delete", (req, res) -> {
