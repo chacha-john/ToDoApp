@@ -10,7 +10,7 @@ public class UserDao implements IUser {
     @Override
     public boolean createAccount(Connection connection, User user) {
         try{
-            String query = "INSERT INTO users (name,email,phone,password) VALUES(:name,:email,:phone,:password";
+            String query = "INSERT INTO users (name,email,phone,password) VALUES(:name,:email,:phone,:password)";
              return connection.createQuery(query)
                      .bind(user)
                      .executeUpdate()
