@@ -5,7 +5,7 @@ import org.sql2o.Connection;
 
 public interface IUser {
     //create a user account
-    boolean createAccount(Connection connection, User user);
+    void createAccount(Connection connection, User user);
 
     //login to an existing account
     User login(Connection connection, String email, String password);
