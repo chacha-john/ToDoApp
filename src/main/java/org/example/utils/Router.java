@@ -37,11 +37,23 @@ public class Router extends RouterUtil {
             checkLogin(request, response);
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "index.hbs");
-
         }, new HandlebarsTemplateEngine());
 
         get("/register", (req, res) -> {
             return new ModelAndView(null, "signup.hbs");/*edit*/
         }, new HandlebarsTemplateEngine());
+
+        post("/register", (request, response) -> {
+            String name = request.queryParams("name");
+            String email = request.queryParams("email");
+            String phone = request.queryParams("phone");
+            String password = request.queryParams("password");
+
+            User user = new User(name, email, password, phone);
+            UserDao userDao = new UserDao();
+            userDao.createAccount(connection, user);
+            response.redirect("/login");
+            return null;
+        });
     }
 }
