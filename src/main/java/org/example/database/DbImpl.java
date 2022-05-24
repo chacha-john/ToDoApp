@@ -9,7 +9,7 @@ public class DbImpl extends DB{
     public Connection connect() {
         try{
             String connectionString = "jdbc:postgresql://localhost:5432/todo";
-            return new Sql2o(connectionString, "riko","nzfu5321").open();
+            return new Sql2o(connectionString, "terry","Postgres4041*").open();
         } catch (Sql2oException ex){
             throw new RuntimeException("Program encountered an error", ex);
         }
