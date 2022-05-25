@@ -18,7 +18,7 @@ import static spark.Spark.post;
 
 public class Router extends RouterUtil {
     public static void run(Connection connection){
-
+//        Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/todo", "terry", "Postgres4041*");
         Sql2o sql2o = new Sql2o("jdbc:postgresql://ec2-3-231-82-226.compute-1.amazonaws.com:5432/d1lqrgllhefrrf", "ynelxdfbkjatnz", "4352c66fe771f8acf91a91e768fed4f6fb47a8348139b994ed676c19373f9e2f");
         SqlTask task = new SqlTask(sql2o);
         post("/login", (req, res) -> {

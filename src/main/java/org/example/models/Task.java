@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class Task {
     public int getUserId() {return userId;}
     public String getName() {return name;}
     public String getDescription() {return description;}
-    public Timestamp getCreatedon() {return createdon;}
+    public String getCreatedon() {return DateFormat.getDateTimeInstance().format(createdon);}
     public Boolean getCompleted() {return completed;}
     public String getFormattedCreatedOn() {
         return new SimpleDateFormat("MM/dd/yyyy @ K:mm a").format(createdon);
